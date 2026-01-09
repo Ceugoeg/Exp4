@@ -1,0 +1,37 @@
+[model]
+# 建议：如果是公开项目，这里填写 HuggingFace 的模型 ID，让用户自己决定是否下载
+# 或者写成 "/path/to/your/model" 这样的占位符
+embedding_model_name = "BAAI/bge-small-zh-v1.5"
+generation_model_name = "Qwen/Qwen2.5-0.5B"
+embedding_dim = 512
+
+[milvus]
+# 本地开发的默认地址，通常不需要改
+data_path = "127.0.0.1:19530"
+collection_name = "medical_rag_lite"
+index_metric_type = "L2"
+index_type = "IVF_FLAT"
+index_params = { nlist = 128 }
+search_params = { nprobe = 16 }
+
+[data]
+# 使用相对路径，这是安全的
+data_file = "./data/processed_data.json"
+max_articles_to_index = 500
+database_path = "./document_metadata.db"
+
+[generation]
+max_new_tokens = 512
+temperature = 0.3
+top_p = 0.9
+repetition_penalty = 1.1
+
+[search]
+top_k = 5
+similarity_threshold = 0.0
+
+[security]
+max_query_length = 1000
+max_concurrent_queries = 5
+query_timeout = 60.0
+rate_limit_per_minute = 30
